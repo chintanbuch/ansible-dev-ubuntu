@@ -1,0 +1,12 @@
+---
+dependencies:
+  - { role: base }
+
+galaxy_info:
+  author: Chintan Buch
+  description: PostgreSQL
+  platforms:
+    - name: Ubuntu
+  categories:
+    - development
+    - database

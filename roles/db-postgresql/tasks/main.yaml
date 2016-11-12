@@ -1,0 +1,17 @@
+---
+- name: Check for PostgreSQL Installation
+  stat: path=/etc/init.d/postgresql
+  register: POSTGRESQL_APT_EXISTS
+  ignore_errors: True
+
+- name: Add PostgreSQL Key
+  shell: wget -q -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+  when: POSTGRESQL_APT_EXISTS.stat.exists == false
+
+- name: Add PostgreSQL Repo
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ CURRENT_UBUNTU_VERSION }}-pgdg main' state=present
+  when: POSTGRESQL_APT_EXISTS.stat.exists == false
+
+- name: Install PostgreSQL
+  apt: pkg=postgresql update_cache=yes state=latest force=yes
+  when: POSTGRESQL_APT_EXISTS.stat.exists == false
