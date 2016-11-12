@@ -1,0 +1,26 @@
+---
+- name: Install Oracle Java Prerequisits
+  apt: name=software-properties-common state=present update_cache=yes force=true
+  register: ORACLE_JAVA_PREREQUESITS_INSTALLED
+
+- name: Add Oracle Java Repositories
+  apt_repository: repo='ppa:webupd8team/java' state=present
+  when: ORACLE_JAVA_PREREQUESITS_INSTALLED
+  register: ORACLE_JAVA_PPA_INSTALLED
+
+- name: Auto Accept Oracle JDK License
+  debconf: 
+    name: 'oracle-java8-installer'
+    question: 'shared/accepted-oracle-license-v1-1'
+    value: 'true'
+    vtype: 'select'
+  when: ORACLE_JAVA_PPA_INSTALLED
+  register: ORACLE_JDK8_LICENSE_ACCEPTED
+
+- name: Install Oracle Java
+  apt: name={{item}} update_cache=yes state=present force=true
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default
+  when: ORACLE_JDK8_LICENSE_ACCEPTED
