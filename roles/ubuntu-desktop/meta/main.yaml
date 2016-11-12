@@ -1,0 +1,13 @@
+---
+dependencies:
+  - { role: base }
+
+galaxy_info:
+  author: Chintan Buch
+  description: SublimeText, Terminix, Numix, Slack & Gnome Desktop
+  platforms:
+    - name: Ubuntu
+  categories:
+    - system
+    - desktop
+    - development

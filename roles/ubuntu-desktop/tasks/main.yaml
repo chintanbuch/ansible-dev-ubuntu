@@ -1,0 +1,32 @@
+---
+- name: Add SublimeText Repo (ppa:webupd8team/sublime)
+  apt_repository: repo='ppa:webupd8team/sublime-text-3' state=present
+  register: SUBLIMETEXT_PPA_ADDED
+
+- name: Add Terminix Repo (ppa:webupd8team/terminix)
+  apt_repository: repo='ppa:webupd8team/terminix' state=present
+  register: TERMINIX_PPA_ADDED
+
+- name: Add Numix Theme Repo (ppa:numix/ppa)
+  apt_repository: repo='ppa:numix/ppa' state=present
+
+- name: Install SublimeText
+  apt: name=sublime-text-installer update_cache=yes state=latest
+  when: SUBLIMETEXT_PPA_ADDED
+
+- name: Install Terminix
+  apt: name=terminix update_cache=yes state=latest
+  when: TERMINIX_PPA_ADDED
+
+- name: Numix Theme
+  apt: name={{item}} update_cache=yes state=present
+  with_items:
+    - numix-gtk-theme
+    - numix-icon-theme-circle
+
+- name: Install Slack
+  apt:
+    deb: https://downloads.slack-edge.com/linux_releases/slack-desktop-{{ SLACK_VERSION }}-amd64.deb
+
+- name: Install Gnome Desktop
+  apt: name=ubuntu-gnome-desktop update_cache=yes state=present
