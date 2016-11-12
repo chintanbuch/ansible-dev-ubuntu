@@ -1,0 +1,13 @@
+---
+- name: Update All Packages to the Latest Version
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Add GIT Repo (ppa:git-core/ppa)
+  apt_repository: repo='ppa:git-core/ppa' state=present
+  register: GIT_PPA_ADDED
+
+- name: Install GIT
+  apt: name=git update_cache=yes state=latest
+  when: GIT_PPA_ADDED

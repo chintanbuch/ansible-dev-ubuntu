@@ -1,0 +1,10 @@
+---
+dependencies: []
+galaxy_info:
+  author: Chintan Buch
+  description: Update System Packages & Install Git from 'ppa:git-core/ppa'
+  min_ansible_version: 2.1.2.0
+  platforms:
+    - name: Ubuntu
+  categories:
+    - system
