@@ -1,0 +1,12 @@
+---
+- name: Check for MySQL Installation
+  stat: path=/etc/init.d/mysql
+  register: MYSQL_INSTALLED
+
+- name: Install MySQL Server & Client
+  apt: pkg={{item}} state=latest update_cache=yes force=yes
+  when: MYSQL_INSTALLED.stat.exists == false
+  with_items:
+    - mysql-server
+    - mysql-client
+    - python-mysqldb
