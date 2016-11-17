@@ -1,0 +1,14 @@
+---
+dependencies:
+  - { role: db-mysql }
+  - { role: apache-httpd }
+  - { role: php5 }
+
+
+galaxy_info:
+  author: Chintan Buch
+  platforms:
+    - name: Ubuntu
+  categories:
+    - development
+    - lamp

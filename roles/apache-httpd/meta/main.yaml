@@ -1,0 +1,12 @@
+---
+dependencies:
+  - { role: base }
+
+galaxy_info:
+  author: Chintan Buch
+  description: Apache HTTP Server
+  platforms:
+    - name: Ubuntu
+  categories:
+    - development
+    - webserver

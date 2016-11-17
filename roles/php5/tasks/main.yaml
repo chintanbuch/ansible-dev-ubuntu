@@ -1,0 +1,11 @@
+---
+- name: Add PHP5 Repo (ppa:ondrej/php)
+  apt_repository: repo='ppa:ondrej/php' state=present
+  register: ONDREJ_PHP5_PPA_INSTALLED
+
+- name: Install PHP5
+  apt: name={{item}} update_cache=yes state=present force=true
+  with_items:
+    - php5.6
+    - php5.6-*
+  when: ONDREJ_PHP5_PPA_INSTALLED

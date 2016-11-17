@@ -1,0 +1,8 @@
+---
+- name: Check for Apache Server Installation
+  stat: path=/etc/init.d/apache2
+  register: APACHE_INSTALLED
+
+- name: Install Apache Server
+  apt: pkg=apache2 state=latest update_cache=yes force=yes
+  when: APACHE_INSTALLED.stat.exists == false
